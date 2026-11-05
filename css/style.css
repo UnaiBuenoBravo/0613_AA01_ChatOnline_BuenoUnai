@@ -1,0 +1,1115 @@
+/* ==========================================
+   Paleta minimalista: neutros + un solo pastel (lila)
+   ========================================== */
+:root {
+    --fondo:       #f7f6fa;   /* gris lavanda casi blanco */
+    --superficie:  #ffffff;
+    --lila:        #dcd3f3;   /* unico color de acento */
+    --lila-suave:  #f1edfa;   /* hover y detalles */
+    --lila-fuerte: #8f7ed1;   /* foco y hover de iconos */
+    --tinta:       #3a3550;
+    --tinta-suave: #8a849c;
+    --borde:       #ebe8f2;
+    --lateral:     #f4effb;
+    --error:       #c0392b;
+    --ok:          #2e7d4f;
+    --mensaje-yo:  var(--lila);   /* color de TUS mensajes (lo cambia data-color) */
+}
+
+/* ==========================================
+   TEMA OSCURO
+   No se duplica la web: solo se redefinen las variables.
+   <html data-tema="oscuro"> lo pone includes/ajustes.php
+   ========================================== */
+:root[data-tema="oscuro"] {
+    color-scheme: dark;            /* scroll, select y controles nativos oscuros */
+    --fondo:       #16141d;
+    --superficie:  #1f1c2a;
+    --lila:        #4a3f78;
+    --lila-suave:  #2a2540;
+    --lila-fuerte: #a99be6;
+    --tinta:       #ece9f5;
+    --tinta-suave: #a49fb8;
+    --borde:       #342f47;
+    --lateral:     #231f31;
+    --error:       #ff8a8a;
+    --ok:          #7fd6a0;
+}
+
+/* Color de mis mensajes (claro) */
+:root[data-color="azul"]   { --mensaje-yo: #cfe0fb; }
+:root[data-color="verde"]  { --mensaje-yo: #d0efd8; }
+:root[data-color="rojo"]   { --mensaje-yo: #f7d0d4; }
+:root[data-color="morado"] { --mensaje-yo: #dcd3f3; }
+
+/* Color de mis mensajes (oscuro) */
+:root[data-tema="oscuro"][data-color="azul"]   { --mensaje-yo: #2f4f85; }
+:root[data-tema="oscuro"][data-color="verde"]  { --mensaje-yo: #2c5a40; }
+:root[data-tema="oscuro"][data-color="rojo"]   { --mensaje-yo: #7a3340; }
+:root[data-tema="oscuro"][data-color="morado"] { --mensaje-yo: #4a3f78; }
+
+/* Fuente elegida (si no hay ninguna se usa Nunito) */
+:root[data-fuente="Arial"]   { --fuente: Arial, Helvetica, sans-serif; }
+:root[data-fuente="Verdana"] { --fuente: Verdana, Geneva, sans-serif; }
+:root[data-fuente="Roboto"]  { --fuente: 'Roboto', Arial, sans-serif; }
+
+/* ==========================================
+   Configuraciones generales
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--fuente, 'Nunito', 'Trebuchet MS', 'Segoe UI', sans-serif);
+}
+
+body {
+    background-color: var(--fondo);
+    color: var(--tinta);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Imagenes de perfil */
+img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--lila-suave); /* color si no hay foto */
+}
+
+/* ==========================================
+   Header
+   ========================================== */
+header {
+    background-color: var(--superficie);
+    height: 60px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--borde);
+    z-index: 10;
+}
+
+#logo_peque {
+    display: flex;
+    align-items: center;
+}
+
+#username {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: var(--tinta);
+}
+
+#ajustes {
+    display: flex;
+    align-items: center;
+}
+
+/* Iconos de Material Symbols */
+.rueda-ajustes-per {
+    color: var(--tinta-suave) !important;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.2s;
+}
+
+.material-symbols-outlined:hover {
+    color: var(--lila-fuerte) !important;
+    transform: rotate(45deg);
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* ==========================================
+   ESTRUCTURA PRINCIPAL (Main)
+   ========================================== */
+main {
+    flex: 1;
+    display: flex;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+}
+
+/* Lateral izquierdo: lista de contactos */
+#contactos {
+    width: 350px;
+    background-color: var(--superficie);
+    border-right: 1px solid var(--borde);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Zona derecha: ventana de chat (fondo liso) */
+#chat {
+    flex: 1;
+    background-color: var(--fondo);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================
+   COMPONENTE: BUSCADOR
+   ========================================== */
+#Buscador {
+    padding: 14px;
+}
+
+#Buscador form {
+    display: flex;
+    align-items: center;
+    background-color: var(--fondo);
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 6px 16px;
+    gap: 8px;
+    transition: border-color 0.2s;
+}
+
+#Buscador form:focus-within {
+    border-color: var(--lila);
+}
+
+#Buscador label {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    color: var(--tinta-suave);
+    font-weight: 700;
+}
+
+#Buscador input {
+    flex: 1;
+    min-width: 0;          /* sin esto el input no se encoge y aplasta el boton */
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.95rem;
+    color: var(--tinta);
+}
+
+#Buscador input::placeholder {
+    color: #b5b0c4;
+}
+
+/* ==========================================
+   COMPONENTE: LISTA DE CHATS ACTIVOS
+   ========================================== */
+#chats_activos {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* Tarjeta de contacto en la lista lateral */
+#contactos .tarjeta {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--borde);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-items: center;
+}
+
+#contactos .tarjeta:hover {
+    background-color: var(--lila-suave);
+}
+
+#contactos .tarjeta img {
+    grid-row: span 2;
+    width: 48px;
+    height: 48px;
+}
+
+#contactos .tarjeta h2 {
+    font-size: 1rem;
+    color: var(--tinta);
+    font-weight: 700;
+}
+
+#contactos .tarjeta p:nth-of-type(1) {
+    font-size: 0.8rem;
+    color: var(--tinta-suave);
+    grid-column: 2;
+}
+
+#contactos .tarjeta p:nth-of-type(2) {
+    font-size: 0.85rem;
+    color: var(--tinta-suave);
+    grid-column: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+/* ==========================================
+   COMPONENTE: VENTANA DE CHAT ABIERTO
+   ========================================== */
+#chat .tarjeta {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Contenedor de burbujas de texto */
+#contenido_chat {
+    flex: 1;
+    padding: 24px 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Burbujas de mensajes */
+#contenido_chat p {
+    max-width: 65%;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--tinta);
+    word-wrap: break-word;
+}
+
+/* Mensaje recibido (amigo): blanco con borde fino */
+.mensaje_amigo {
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    align-self: flex-start;
+    border-bottom-left-radius: 6px !important;
+}
+
+.mensaje-error{
+    color: var(--error);
+}
+/* Mensaje enviado (tu): lila pastel */
+.mensaje_yo {
+    background-color: var(--mensaje-yo);
+    align-self: flex-end;
+    border-bottom-right-radius: 6px !important;
+}
+
+/* Barra inferior para escribir mensaje */
+#chat form {
+    background-color: var(--superficie);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--borde);
+}
+
+#chat textarea {
+    resize: none;
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    outline: none;
+    font-size: 0.95rem;
+    background-color: var(--fondo);
+    color: var(--tinta);
+    transition: border-color 0.2s;
+}
+
+#chat textarea::placeholder {
+    color: #b5b0c4;
+}
+
+#chat textarea:focus {
+    border-color: var(--lila);
+}
+
+/* Boton Enviar */
+#chat form button {
+    flex-shrink: 0;
+    padding: 12px 26px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background-color: var(--lila);
+    color: var(--tinta);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#chat form button:hover {
+    background-color: var(--lila-fuerte);
+    color: var(--superficie);
+}
+
+#chat form button:focus-visible {
+    outline: 2px solid var(--lila-fuerte);
+    outline-offset: 2px;
+}
+
+/* Chat sin acceso: boton apagado y sin efecto al pasar el raton */
+#chat form button:disabled {
+    cursor: not-allowed;
+    background-color: var(--lila);
+    color: var(--tinta);
+}
+
+/* ==========================================
+   Accesibilidad: foco visible con teclado
+   ========================================== */
+a:focus-visible,
+#contactos .tarjeta:focus-visible {
+    outline: 2px solid var(--lila-fuerte);
+    outline-offset: 2px;
+    border-radius: 12px;
+}
+
+
+/* ==========================================
+   PAGINA: PERFIL / AJUSTES
+   (se activa con <body class="pagina-ajustes">)
+   ========================================== */
+body.pagina-ajustes {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+ 
+.pagina-ajustes header {
+    position: sticky;
+    top: 0;
+}
+ 
+.pagina-ajustes #ajustes .material-symbols-outlined {
+    color: var(--lila-fuerte);
+}
+ 
+/* El icono de inicio no debe girar como la rueda de ajustes */
+.pagina-ajustes .material-symbols-outlined:hover {
+    transform: none;
+}
+ 
+.pagina-ajustes main {
+    height: auto;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    align-items: start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 40px;
+}
+ 
+/* Cada bloque es un panel */
+.pagina-ajustes main > section {
+    background-color: var(--lateral);
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    padding: 24px;
+}
+ 
+.pagina-ajustes form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+ 
+.pagina-ajustes h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--tinta);
+}
+ 
+.pagina-ajustes h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--lila-fuerte);
+    margin-top: 6px;
+}
+ 
+/* Campos: etiqueta arriba, input debajo */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+ 
+.campo label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--lila-fuerte);
+}
+ 
+.pagina-ajustes input[type="text"],
+.pagina-ajustes input[type="email"],
+.pagina-ajustes input[type="password"],
+.pagina-ajustes select {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    outline: none;
+    font-size: 0.95rem;
+    background-color: var(--superficie);
+    color: var(--tinta);
+    transition: border-color 0.2s;
+}
+ 
+.pagina-ajustes input::placeholder {
+    color: #a99fc4;
+}
+ 
+.pagina-ajustes input[type="text"]:focus,
+.pagina-ajustes input[type="email"]:focus,
+.pagina-ajustes input[type="password"]:focus,
+.pagina-ajustes select:focus {
+    border-color: var(--lila-fuerte);
+}
+ 
+/* Foto de perfil grande */
+#fotoPerfil {
+    width: 96px;
+    height: 96px;
+    align-self: center;
+    border: 3px solid var(--lila);
+}
+ 
+/* Botones (principal en lila, secundario con borde) */
+.pagina-ajustes button,
+.pagina-ajustes input[type="submit"] {
+    align-self: flex-start;
+    padding: 10px 22px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background-color: var(--lila);
+    color: var(--tinta);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+ 
+.pagina-ajustes button:hover,
+.pagina-ajustes input[type="submit"]:hover {
+    background-color: var(--lila-fuerte);
+    color: var(--superficie);
+}
+ 
+.pagina-ajustes button.secundario {
+    background-color: transparent;
+    border-color: var(--borde);
+}
+ 
+.pagina-ajustes button.secundario:hover {
+    border-color: var(--lila-fuerte);
+    background-color: var(--lila-suave);
+    color: var(--tinta);
+}
+ 
+.pagina-ajustes button:focus-visible,
+.pagina-ajustes input:focus-visible,
+.pagina-ajustes select:focus-visible {
+    outline: 2px solid var(--lila-fuerte);
+    outline-offset: 2px;
+}
+ 
+/* Filas con elementos en horizontal (temas, selector de color) */
+.fila {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+ 
+.pagina-ajustes input[type="color"] {
+    width: 48px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    background: none;
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   DESPLEGABLE (select) personalizado
+   ========================================== */
+/* Parte cerrada: se quita la flecha del sistema y se pone una lila */
+.pagina-ajustes select {
+    -webkit-appearance: none;
+    appearance: none;
+    padding-right: 42px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237b66c6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+ 
+/* Navegadores modernos (Chrome/Edge recientes): lista totalmente estilizable */
+@supports (appearance: base-select) {
+    .pagina-ajustes select,
+    .pagina-ajustes select::picker(select) {
+        appearance: base-select;
+    }
+ 
+    .pagina-ajustes select {
+        background-image: none;   /* ahora usa su propia flecha */
+        padding-right: 16px;
+    }
+ 
+    .pagina-ajustes select::picker-icon {
+        color: var(--lila-fuerte);
+    }
+ 
+    .pagina-ajustes select::picker(select) {
+        margin-top: 6px;
+        padding: 6px;
+        border: 1px solid var(--borde);
+        border-radius: 16px;
+        background-color: var(--superficie);
+        box-shadow: none;
+    }
+ 
+    .pagina-ajustes select option {
+        padding: 8px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+ 
+    .pagina-ajustes select option:hover {
+        background-color: var(--lila-suave);
+    }
+ 
+    .pagina-ajustes select option:checked {
+        background-color: var(--lila);
+    }
+ 
+    .pagina-ajustes select option::checkmark {
+        display: none;
+    }
+}
+
+/* ==========================================
+   Enlace de cerrar sesion (header, junto al home)
+   ========================================== */
+#ajustes {
+    gap: 16px;
+}
+ 
+.logout {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    background-color: var(--superficie);
+    color: var(--tinta);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+ 
+.logout:hover {
+    background-color: var(--lila-fuerte);
+    border-color: var(--lila-fuerte);
+    color: var(--superficie);
+}
+
+/* ==========================================
+   PAGINAS: LOGIN Y REGISTRO
+   ========================================== */
+.pagina-login main {
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;   /* el registro es mas largo: scroll dentro de main */
+}
+ 
+#login {
+    width: 100%;
+    max-width: 420px;
+    margin: auto;
+    background-color: var(--lateral);
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    padding: 32px;
+}
+ 
+.pagina-login form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+ 
+.pagina-login h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--tinta);
+}
+ 
+.bienvenida {
+    margin-top: -8px;
+    font-size: 0.9rem;
+    color: var(--tinta-suave);
+}
+ 
+/* Nombre y apellido lado a lado (se apilan en pantallas pequenas) */
+.pagina-login .fila {
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.pagina-login .fila .campo {
+    flex: 1 1 150px;
+}
+
+.pagina-login input[type="text"],
+.pagina-login input[type="email"],
+.pagina-login input[type="password"] {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    outline: none;
+    font-size: 0.95rem;
+    background-color: var(--superficie);
+    color: var(--tinta);
+    transition: border-color 0.2s;
+}
+
+.pagina-login input::placeholder {
+    color: #a99fc4;
+}
+
+.pagina-login input[type="text"]:focus,
+.pagina-login input[type="email"]:focus,
+.pagina-login input[type="password"]:focus {
+    border-color: var(--lila-fuerte);
+}
+
+.pagina-login input[type="submit"] {
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px 22px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background-color: var(--lila);
+    color: var(--tinta);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+ 
+.pagina-login input[type="submit"]:hover {
+    background-color: var(--lila-fuerte);
+    color: var(--superficie);
+}
+
+.pie_form {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--tinta-suave);
+}
+ 
+.pie_form a {
+    color: var(--lila-fuerte);
+    font-weight: 700;
+    text-decoration: underline;
+}
+ 
+.pie_form a:hover {
+    color: var(--tinta);
+}
+
+
+/* Portada de aqui para abajo es la parte de css del index */
+.pagina-login main {
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 28px;
+        }
+
+        #login.portada {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .portada h2 {
+            font-size: 2rem;
+        }
+
+        .portada .bienvenida {
+            margin-top: 0;
+            line-height: 1.5;
+        }
+
+        .acciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .acciones form {
+            flex: 1 1 180px;
+        }
+
+        .pagina-login input[type="submit"].secundario {
+            background-color: transparent;
+            border-color: var(--borde);
+        }
+
+        .pagina-login input[type="submit"].secundario:hover {
+            background-color: var(--lila-suave);
+            border-color: var(--lila-fuerte);
+            color: var(--tinta);
+        }
+
+        /* Bloques de funcionalidades */
+        .bloque {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .bloque > h2 {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--tinta);
+            margin-bottom: 16px;
+        }
+
+        .rejilla {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .funcion {
+            background-color: var(--lateral);
+            border: 1px solid var(--borde);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .funcion h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--lila-fuerte);
+            margin-bottom: 8px;
+        }
+
+        .funcion p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--tinta-suave);
+        }
+
+        /* Pasos para empezar */
+        .pasos {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            counter-reset: paso;
+        }
+
+        .pasos li {
+            counter-increment: paso;
+            background-color: var(--superficie);
+            border: 1px solid var(--borde);
+            border-radius: 20px;
+            padding: 20px 24px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--tinta-suave);
+        }
+
+        .pasos li::before {
+            content: counter(paso);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            margin-bottom: 10px;
+            border-radius: 50%;
+            background-color: var(--lila);
+            color: var(--tinta);
+            font-weight: 800;
+        }
+
+        .pasos strong {
+            display: block;
+            color: var(--tinta);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+/* Funciones de desactivado chat + mensajes de error en el home */
+/* Chat sin acceso: se ve atenuado, como "aún no empezado" */
+.chat_inactivo #contenido_chat,
+.chat_inactivo form {
+    opacity: 0.5;
+}
+
+/* Mensaje de error centrado dentro del chat */
+#contenido_chat .error_chat {
+    align-self: center;
+    margin: auto;
+    text-align: center;
+    color: var(--error);
+    font-weight: 700;
+}
+
+/* Error bajo el buscador */
+.error_buscador {
+    padding: 0 16px 8px;
+    font-size: 0.8rem;
+    color: var(--error);
+}
+
+/* Que el enlace del contacto no cambie la estética de la tarjeta */
+#chats_activos a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.error{
+    color: var(--error);
+    font-size: 0.8rem;
+    min-height: 1em;
+}
+
+.ok{
+    color: var(--ok);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+/************Color para mensaje de error para validaciones #7a2f46 ***********************************************/
+
+/* Títulos de sección en la columna izquierda */
+.titulo_seccion {
+    padding: 12px 16px 6px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--lila-fuerte);
+}
+ 
+.vacio {
+    padding: 4px 16px 12px;
+    font-size: 0.85rem;
+    color: var(--tinta-suave);
+}
+ 
+/* Botones del buscador */
+#Buscador .btn_buscar {
+    flex-shrink: 0;
+    white-space: nowrap;
+    border: none;
+    border-radius: 999px;
+    padding: 7px 16px;
+    background-color: var(--lila);
+    color: var(--tinta);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+ 
+#Buscador .btn_buscar:hover {
+    background-color: var(--lila-fuerte);
+    color: var(--superficie);
+}
+
+#Buscador .btn_buscar:focus-visible {
+    outline: 2px solid var(--lila-fuerte);
+    outline-offset: 2px;
+}
+ 
+/* Botones de amistad dentro de las tarjetas */
+#contactos .tarjeta .acciones_amistad {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+ 
+#contactos .tarjeta .acciones_amistad:empty {
+    display: none;
+}
+ 
+.form_amistad button {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 5px 14px;
+    background-color: var(--lila);
+    color: var(--tinta);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+ 
+.form_amistad button:hover {
+    background-color: var(--lila-fuerte);
+    color: var(--superficie);
+}
+ 
+.form_amistad button.secundario {
+    background-color: transparent;
+    border-color: var(--borde);
+}
+ 
+.form_amistad button.secundario:hover {
+    background-color: var(--lila-suave);
+    border-color: var(--lila-fuerte);
+    color: var(--tinta);
+}
+ 
+.etiqueta {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--tinta-suave);
+}
+ 
+/* La lista de contactos hace scroll con todo dentro */
+#contactos {
+    overflow-y: auto;
+}
+
+/* Contenedor del amigo: sirve para colocar el botón encima de la tarjeta */
+.contacto {
+    position: relative;
+}
+
+/* Dejamos hueco a la derecha para que el texto no quede debajo del botón */
+#contactos .contacto .tarjeta {
+    padding-right: 52px;
+}
+
+.form_eliminar {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+}
+
+/* Botón pequeño y redondo */
+.btn_eliminar {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid var(--borde);
+    border-radius: 50%;
+    background-color: var(--superficie);
+    color: var(--tinta-suave);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn_eliminar:hover {
+    background-color: var(--lila-fuerte);
+    border-color: var(--lila-fuerte);
+    color: var(--superficie);
+}
+
+/* Botones del aviso de SweetAlert (eliminar amigo) */
+.swal2-actions .btn {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 8px 20px;
+    margin: 0 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.swal2-actions .btn-success {
+    background-color: var(--lila);
+    color: var(--tinta);
+}
+
+.swal2-actions .btn-success:hover {
+    background-color: var(--lila-fuerte);
+    color: var(--superficie);
+}
+
+.swal2-actions .btn-danger {
+    background-color: transparent;
+    border-color: var(--borde);
+    color: var(--tinta);
+}
+
+.swal2-actions .btn-danger:hover {
+    background-color: var(--lila-suave);
+    border-color: var(--lila-fuerte);
+}
+.chat_inactivo { opacity: 0.5; }
+/* ==========================================
+   BURBUJA DE MENSAJES SIN LEER
+   ========================================== */
+#contactos .tarjeta {
+    position: relative;
+}
+
+.burbuja {
+    position: absolute;
+    left: 50px;
+    top: 20%;
+    transform: translateY(-50%);
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 11px;
+    background-color: var(--lila-fuerte);
+    color: var(--superficie);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 22px;
+    text-align: center;
+}
+
+/* Sin mensajes nuevos: la burbuja desaparece */
+.burbuja:empty {
+    display: none;
+}
+
+/* SweetAlert con los colores del tema */
+.swal2-popup {
+    background-color: var(--superficie);
+    color: var(--tinta);
+}
+
+.swal2-title,
+.swal2-html-container {
+    color: var(--tinta);
+}
