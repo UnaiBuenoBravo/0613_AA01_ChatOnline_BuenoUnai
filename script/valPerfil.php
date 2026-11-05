@@ -5,7 +5,6 @@
 
 session_start();
 
-// >>> Ajusta esta ruta a donde tengas perfil.php (relativa a la carpeta script/)
 const VOLVER = '../view/perfil.php';
 
 if (!isset($_SESSION['Usuario'], $_SESSION['IdUser'])) {

@@ -18,6 +18,9 @@
     // Se captura la excepción y se muestra el mensaje de error 
     echo "Error en la conexión a la base de datos: " . $e->getMessage(); 
     die(); 
+//duhfeufeuofnejfe
 
+
+//fejfbefnenfen
  }
  ?>

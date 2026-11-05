@@ -60,7 +60,6 @@ $foto = $u['FotoPerfil'] ? e($u['FotoPerfil']) : '../img/perfil.jpg';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
-    <?php include_once '../includes/ajustes.php'; ?>
     <!-- Link material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
@@ -88,11 +87,6 @@ $foto = $u['FotoPerfil'] ? e($u['FotoPerfil']) : '../img/perfil.jpg';
     $vNombre   = $datosForm['nombre']   ?? $u['Nombre'];
     $vApellido = $datosForm['apellido'] ?? $u['Apellido'];
     $vEmail    = $datosForm['email']    ?? $u['Email'];
-
-    // $ajTema, $ajColor y $ajFuente los deja includes/ajustes.php
-    $vTema   = $datosForm['tema']   ?? ($ajTema   ?? 'claro');
-    $vColor  = $datosForm['color']  ?? ($ajColor  ?? 'azul');
-    $vFuente = $datosForm['fuente'] ?? ($ajFuente ?? 'Arial');
     ?>
     <main>
         <!-- ============ Configuración general ============ -->
@@ -167,59 +161,6 @@ $foto = $u['FotoPerfil'] ? e($u['FotoPerfil']) : '../img/perfil.jpg';
             </form>
         </section>
 
-        <!-- ============ Personalizar ============ -->
-        <section id="temas">
-            <form action="../script/valPerfil.php" method="post" id="formPerso" novalidate>
-                <input type="hidden" name="form" value="personalizar">
-                <h2>Personalizar web</h2>
-
-                <div class="campo">
-                    <label for="tema">Tema</label>
-                    <select id="tema" name="tema">
-                        <?php echo opciones(['claro' => 'Claro', 'oscuro' => 'Oscuro'], $vTema); ?>
-                    </select>
-                    <p class="error"><?php echo e($errores['tema'] ?? ''); ?></p>
-                </div>
-
-                <div class="campo">
-                    <label for="color">Color de tus mensajes</label>
-                    <select id="color" name="color">
-                        <?php echo opciones(['azul' => 'Azul', 'verde' => 'Verde', 'rojo' => 'Rojo', 'morado' => 'Morado'], $vColor); ?>
-                    </select>
-                    <p class="error"><?php echo e($errores['color'] ?? ''); ?></p>
-                </div>
-
-                <div class="campo">
-                    <label for="fuente">Fuente</label>
-                    <select id="fuente" name="fuente">
-                        <?php echo opciones(['Arial' => 'Arial', 'Verdana' => 'Verdana', 'Roboto' => 'Roboto'], $vFuente); ?>
-                    </select>
-                    <p class="error"><?php echo e($errores['fuente'] ?? ''); ?></p>
-                </div>
-
-                <?php if (isset($errores['bd_personalizar'])) { ?>
-                    <p class="error"><?php echo e($errores['bd_personalizar']); ?></p>
-                <?php } ?>
-                <?php if (isset($ok['personalizar'])) { ?>
-                    <p class="ok"><?php echo e($ok['personalizar']); ?></p>
-                <?php } ?>
-
-                <input type="submit" value="Guardar personalización">
-            </form>
-        </section>
-
     </main>
-
-    <script>
-    // Vista previa: al cambiar un desplegable se aplica al momento (no se guarda hasta pulsar el boton)
-    (function () {
-        var raiz = document.documentElement;
-        [['tema', 'tema'], ['color', 'color'], ['fuente', 'fuente']].forEach(function (par) {
-            document.getElementById(par[0]).addEventListener('change', function (ev) {
-                raiz.setAttribute('data-' + par[1], ev.target.value);
-            });
-        });
-    })();
-    </script>
 </body>
 </html>
